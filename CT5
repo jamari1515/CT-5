@@ -1,0 +1,59 @@
+public class MonthlyTemperatures {
+    public static void main(String[] args) {
+        
+        String[] months = {"January", "February", "March", "April", "May", "June", 
+                           "July", "August", "September", "October", "November", "December"};
+        double[] temperatures = new double[12];
+        
+        
+        Scanner scanner = new Scanner(System.in);
+        for (int i = 0; i < 12; i++) {
+            System.out.print("Enter the average temperature for " + months[i] + ": ");
+            temperatures[i] = scanner.nextDouble();
+        }
+        
+        System.out.print("Enter a month to view its temperature or type 'year' to view the yearly summary: ");
+        String input = scanner.next();
+        
+        if (input.equalsIgnoreCase("year")) {
+            System.out.println("Monthly temperatures:");
+            for (int i = 0; i < 12; i++) {
+                System.out.println(months[i] + ": " + temperatures[i] + "°C");
+            }
+            
+            double sum = 0;
+            for (double temp : temperatures) {
+                sum += temp;
+            }
+            double yearlyAverage = sum / 12;
+            System.out.println("Yearly average temperature: " + yearlyAverage + "°C");
+            
+            double highest = temperatures[0];
+            double lowest = temperatures[0];
+            for (double temp : temperatures) {
+                if (temp > highest) {
+                    highest = temp;
+                }
+                if (temp < lowest) {
+                    lowest = temp;
+                }
+            }
+            System.out.println("Highest monthly average temperature: " + highest + "°C");
+            System.out.println("Lowest monthly average temperature: " + lowest + "°C");
+        } else {
+            boolean validMonth = false;
+            for (int i = 0; i < 12; i++) {
+                if (input.equalsIgnoreCase(months[i])) {
+                    System.out.println(months[i] + "'s average temperature: " + temperatures[i] + "°C");
+                    validMonth = true;
+                    break;
+                }
+            }
+            if (!validMonth) {
+                System.out.println("Invalid month entered.");
+            }
+        }
+        
+        scanner.close();
+    }
+}
